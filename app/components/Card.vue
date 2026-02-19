@@ -20,7 +20,7 @@
         </picture>
         <div class="product__price">
             <p class="product__price--total">{{ product.price }} ₽</p>
-            <p class="product__price--half">{{ (product.price / 2).toFixed(0) }}₽ x 2</p>
+            <p class="product__price--half">{{ Math.round(product.price / 2) }}₽ x 2</p>
         </div>
         <h4 class="product__name">{{ product.name }}</h4>
     </article>

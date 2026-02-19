@@ -1,0 +1,326 @@
+// ==================
+// Variables
+// ==================
+
+$header-height: 80px;
+$header-height-mobile: 60px;
+
+$container-padding: 60px;
+$container-padding-mobile: 20px;
+
+$color-black: #000;
+$color-white: #FFF;
+$color-gray: #6F6F6F;
+$color-light: #F5F5F5;
+$color-accent: red;
+
+$bp-xl: 1440px;
+$bp-lg: 1100px;
+$bp-md: 768px;
+$bp-sm: 560px;
+$bp-xs: 540px;
+
+
+@mixin flex($gap: 0, $justify: flex-start, $align: stretch) {
+    display: flex;
+    gap: $gap;
+    justify-content: $justify;
+    align-items: $align;
+  }
+  
+  @mixin container-padding {
+    padding: 20px $container-padding;
+  
+    @media (max-width: $bp-md) {
+      padding: 20px $container-padding-mobile;
+    }
+  }
+  
+
+  body {
+    margin: 0;
+    background-color: $color-white;
+    display: flex;
+    flex-direction: column;
+    min-height: 100vh;
+  }
+  
+  .container {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+  
+    &__main {
+      flex: 1;
+      @include container-padding;
+      min-height: calc(100vh - $header-height);
+
+      @media screen and (max-width: $bp-md) {
+        min-height: calc(100vh - $header-height-mobile);
+      }
+    }
+  }
+  
+a {
+    text-decoration: none;
+}
+p, h1,h2,h3,h4,h5,h6 {
+    padding: 0;
+    margin: 0;
+}
+
+
+.header {
+    height: $header-height;
+    @include flex(10px, flex-start, center);
+    @include container-padding;
+  
+    @media (max-width: $bp-md) {
+      height: $header-height-mobile;
+      justify-content: space-between;
+    }
+  
+    &__logo {
+      width: 50px;
+      height: 50px;
+      background: $color-accent;
+  
+      @media (max-width: $bp-md) {
+        width: 28px;
+        height: 28px;
+      }
+    }
+  
+    &__navigation {
+      @include flex(0, center, center);
+      background: $color-light;
+      margin: 0 auto;
+  
+      &--link {
+        padding: 20px 10px;
+        color: $color-black;
+      }
+  
+      @media (max-width: $bp-md) {
+        display: none;
+      }
+    }
+  
+    &__burger {
+      display: none;
+      cursor: pointer;
+      padding: 20px 10px;
+      background: $color-light;
+      border: none;
+  
+      @media (max-width: $bp-md) {
+        display: block;
+      }
+  
+      &::before {
+        content: "";
+        display: block;
+        width: 20px;
+        height: 2px;
+        background: $color-black;
+        box-shadow:
+          0 5px 0 $color-black,
+          0 -5px 0 $color-black;
+      }
+    }
+  }
+  
+  .footer {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 40px;
+    background: $color-black;
+    color: $color-white;
+    padding: 100px $container-padding;
+  
+    @media (max-width: $bp-lg) {
+      grid-template-columns: repeat(2, 1fr);
+    }
+  
+    @media (max-width: $bp-xs) {
+      grid-template-columns: 1fr;
+    }
+  
+    &__links {
+      display: grid;
+      gap: 14px;
+  
+      &--title {
+        color: $color-gray;
+        font-weight: 400;
+      }
+  
+      &--link {
+        color: $color-white;
+      }
+    }
+  }
+  
+.information {
+    @include flex(40px, center);
+    flex-direction: column;
+    height: 100%;
+    padding: 20px 60px;
+    &__title {
+        font-size: 64px;
+        font-weight: 500;
+        @media screen and (max-width: 768px) {
+            font-size: 26px;
+        }
+    }
+    &__link {
+        background: red;
+        padding: 10px 24px;
+        color: white;
+        width: fit-content;
+        @media screen and (max-width: 768px) {
+            font-size: 14px;
+        }
+    }
+    @media screen and (max-width: 768px) {
+        padding: 20px;
+    }
+}
+.catalog {
+    display: grid;
+    gap: 10px;
+    grid-template-columns: repeat(4, 1fr);
+  
+    @media (min-width: $bp-xl) {
+      grid-template-columns: repeat(5, 1fr);
+    }
+  
+    @media (max-width: $bp-lg) {
+      grid-template-columns: repeat(3, 1fr);
+    }
+  
+    @media (max-width: $bp-sm) {
+      grid-template-columns: repeat(2, 1fr);
+    }
+  
+    &__title,
+    &__loading-block {
+      grid-column: 1 / -1;
+    }
+  
+    &__title {
+      text-align: center;
+      padding: 110px 0;
+  
+      @media (max-width: $bp-md) {
+        padding: 20px;
+      }
+    }
+  
+    &__loading-block {
+      min-height: 300px;
+      @include flex(0, center, center);
+    }
+  }
+  
+  .product {
+    @include flex(10px);
+    flex-direction: column;
+    position: relative;
+  
+    &__favorite {
+      position: absolute;
+      top: 0;
+      right: 0;
+      padding: 5px;
+      cursor: pointer;
+    }
+  
+    &__image {
+      max-width: 290px;
+      max-height: 180px;
+  
+      img {
+        width: 100%;
+        height: 100%;
+        object-fit: contain;
+      }
+  
+      @media (max-width: $bp-md) {
+        width: 120px;
+        height: 120px;
+      }
+    }
+  
+    &__price {
+      @include flex(10px, flex-start, center);
+      font-weight: 500;
+  
+      @media (max-width: $bp-md) {
+        flex-direction: column;
+        align-items: flex-start;
+      }
+  
+      &--total {
+        font-size: 24px;
+      }
+  
+      &--half {
+        font-size: 14px;
+        padding: 4px;
+        background: $color-black;
+        color: $color-white;
+      }
+    }
+  
+    &__name {
+      text-transform: capitalize;
+  
+      @media (max-width: $bp-md) {
+        font-size: 12px;
+      }
+    }
+  }
+  
+.more__button,
+.error__repeat {
+    padding: 10px 24px;
+    border: 1px solid black;
+    cursor: pointer;
+    background: transparent;
+    transition: .3s;
+    &:hover {
+        background: #6F6F6F;
+        color: white;
+    }
+}
+.loader {
+    &__dot {
+        animation: jump 0.6s infinite alternate;
+        color: #000;
+        font-size: 20px;
+        transition: color 0.3s;
+        height: fit-content;
+        display: inline-block;
+        &:nth-child(2) {
+            animation-delay: 0.2s;
+        }
+        &:nth-child(3) {
+            animation-delay: 0.4s;
+        }
+    }
+}
+.error {
+    @include flex(30px, center, center);
+    flex-direction: column;
+    height: 100px;
+}
+
+@keyframes jump {
+    0% {
+        transform: translateY(0);
+    }
+    100% {
+        transform: translateY(-8px);
+    }
+}
